@@ -1,0 +1,486 @@
+/* Modern To-Do App Stylesheet */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif ;
+    background: wheat;
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Animated background particles */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"><animate attributeName="cy" values="20;80;20" dur="3s" repeatCount="indefinite"/></circle><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"><animate attributeName="cy" values="40;10;40" dur="4s" repeatCount="indefinite"/></circle><circle cx="40" cy="60" r="1.5" fill="rgba(255,255,255,0.1)"><animate attributeName="cy" values="60;20;60" dur="5s" repeatCount="indefinite"/></circle></svg>') repeat;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Main container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header styling */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, wheat, orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInDown 1s ease-out;
+    position: relative;
+}
+
+h1::after {
+    content: '✓';
+    position: absolute;
+    right: -50px;
+    top: 0;
+    color: #4CAF50;
+    animation: bounce 2s infinite;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Empty state message */
+h3 {
+    text-align: center;
+    color: #666;
+    font-weight: 400;
+    margin: 40px 0;
+    padding: 30px;
+    background: linear-gradient(45deg, wheat, #f2b629);
+    border-radius: 15px;
+    border-left: 5px solid #f8c50b;
+    animation: pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+    }
+    to {
+        box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+    }
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Table header */
+table tr:first-child {
+    background: linear-gradient(45deg, wheat, #f2b629);
+    color: white;
+}
+
+table tr:first-child td {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 20px 15px;
+    font-size: 14px;
+}
+
+/* Table rows */
+table tr:not(:first-child) {
+    transition: all 0.3s ease;
+    animation: slideInLeft 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+table tr:not(:first-child):nth-child(even) {
+    background: #f8f9fa;
+}
+
+table tr:not(:first-child):hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    transform: translateX(5px);
+    box-shadow: 5px 0 15px rgba(102, 126, 234, 0.2);
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Add staggered animation delay for each row */
+table tr:nth-child(2) { animation-delay: 0.1s; }
+table tr:nth-child(3) { animation-delay: 0.2s; }
+table tr:nth-child(4) { animation-delay: 0.3s; }
+table tr:nth-child(5) { animation-delay: 0.4s; }
+table tr:nth-child(6) { animation-delay: 0.5s; }
+
+table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+table td:first-child {
+    font-weight: 600;
+    color: #333;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+table td:nth-child(2) {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Action buttons */
+table td:last-child {
+    text-align: center;
+}
+
+table td a {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 2px;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+table td a::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+table td a:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* Delete button */
+table td a[href*="delete"] {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+    color: white;
+    border: 2px solid transparent;
+}
+
+table td a[href*="delete"]:hover {
+    background: linear-gradient(135deg, #ff5252, #d32f2f);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* Edit button */
+table td a[href*="update"] {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: 2px solid transparent;
+}
+
+table td a[href*="update"]:hover {
+    background: linear-gradient(135deg, #45a049, #388e3c);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+}
+
+/* Form styling */
+form {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: slideInUp 1s ease-out;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+form input[type="text"] {
+    flex: 1;
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+form input[type="text"]:focus {
+    outline: none;
+    border-color: #ead066;
+    background: white;
+    box-shadow: 0 0 20px rgba(164, 133, 30, 0.296);
+    transform: scale(1.02);
+}
+
+form input[type="text"]::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+form input[type="submit"] {
+    padding: 15px 30px;
+    background: linear-gradient(45deg, wheat, #f2b629);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+form input[type="submit"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(170, 124, 18, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+form input[type="submit"]:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+form input[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(230, 234, 102, 0.4);
+}
+
+form input[type="submit"]:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h1::after {
+        right: -30px;
+    }
+    
+    table {
+        font-size: 14px;
+    }
+    
+    table td {
+        padding: 10px 8px;
+    }
+    
+    form {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    form input[type="text"] {
+        width: 100%;
+    }
+    
+    form input[type="submit"] {
+        width: 100%;
+        padding: 18px;
+    }
+    
+    table td a {
+        display: block;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 5px;
+        padding: 15px;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    table tr {
+        display: table-row;
+    }
+    
+    table td {
+        min-width: 120px;
+    }
+}
+
+/* Loading animation for when tasks are being added */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    border-top-color: #667eea;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Success message animation */
+.success-message {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+    animation: slideInDown 0.5s ease-out;
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+/* Hover effects for the entire container */
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a6fd8, #6a4190);
+}
